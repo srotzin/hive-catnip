@@ -197,6 +197,10 @@ async def fetch_lumber_signal() -> dict:
 
 
 # ── The Free Alpha Feed ───────────────────────────────────────
+@app.get("/health")
+async def health():
+    return {"status": "ok", "service": "hive-catnip", "version": "1.0.0"}
+
 @app.get("/v1/hive/alpha/free")
 async def free_alpha_feed(request: Request):
     """
