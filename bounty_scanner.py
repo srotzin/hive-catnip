@@ -766,6 +766,18 @@ def check_unprotected_mint(source: str) -> list:
     return findings
 
 
+def analyze_contract(address: str, source_code: str, contract_name: str = "Unknown") -> list:
+    """
+    Public wrapper used by contest_scanner. Runs all static analysis checks
+    and tags each finding with address and contract_name.
+    """
+    findings = run_static_analysis(source_code)
+    for f in findings:
+        f.setdefault("contract_address", address)
+        f.setdefault("contract_name", contract_name)
+    return findings
+
+
 def run_static_analysis(source: str) -> list:
     """
     Run all static analysis checks and return list of findings.
