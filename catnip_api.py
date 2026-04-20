@@ -7,10 +7,22 @@ from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional
 import random
 
+# ── Bounty scanner integration ────────────────────────────────
+from bounty_routes import router as bounty_router
+from bounty_scanner import start_scanner
+
 app = FastAPI(title="Hive Civilization — Entry Point")
 
 app.add_middleware(CORSMiddleware, allow_origins=["*"],
                    allow_methods=["*"], allow_headers=["*"])
+
+# Register bounty routes
+app.include_router(bounty_router)
+
+# Start the background scanner on app startup
+@app.on_event("startup")
+async def startup_event():
+    start_scanner()
 
 # ── In-memory counters (replace with Redis in prod) ──────────
 STATS = {
