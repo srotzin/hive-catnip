@@ -10,19 +10,23 @@ import random
 # ── Bounty scanner integration ────────────────────────────────
 from bounty_routes import router as bounty_router
 from bounty_scanner import start_scanner
+from contest_routes import router as contest_router
+from contest_scanner import start_contest_scanner
 
 app = FastAPI(title="Hive Civilization — Entry Point")
 
 app.add_middleware(CORSMiddleware, allow_origins=["*"],
                    allow_methods=["*"], allow_headers=["*"])
 
-# Register bounty routes
+# Register routes
 app.include_router(bounty_router)
+app.include_router(contest_router)
 
-# Start the background scanner on app startup
+# Start background scanners on app startup
 @app.on_event("startup")
 async def startup_event():
-    start_scanner()
+    start_scanner()          # Blockscout Base — new contracts every 5min
+    start_contest_scanner()  # Code4rena + Sherlock — open contests every 30min
 
 # ── In-memory counters (replace with Redis in prod) ──────────
 STATS = {
