@@ -354,7 +354,7 @@ async def premium_alpha_feed(
     x_payment: Optional[str] = Header(None),
     x_hive_did: Optional[str] = Header(None)
 ):
-    RECIPIENT = os.getenv("USDC_RECEIVING_ADDRESS", "0x78B3B3C356E89b5a69C488c6032509Ef4260B6bf")
+    RECIPIENT = os.getenv("USDC_RECEIVING_ADDRESS", "0x15184bf50b3d3f52b60434f8942b7d52f2eb436e")
 
     if not x_payment:
         return JSONResponse(

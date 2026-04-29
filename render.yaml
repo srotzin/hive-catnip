@@ -6,6 +6,6 @@ services:
     startCommand: uvicorn catnip_api:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: USDC_RECEIVING_ADDRESS
-        value: 0x78B3B3C356E89b5a69C488c6032509Ef4260B6bf
+        value: 0x15184bf50b3d3f52b60434f8942b7d52f2eb436e
       - key: CATNIP_HOST
         value: https://hive-catnip.onrender.com
